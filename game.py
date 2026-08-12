@@ -75,7 +75,11 @@ class SnakeGameAI:
         if self.is_collision() or self.frame_iteration > 100*len(self.snake):
             game_over = True
             reward = -10
-            return reward, game_over, self.score
+            # Update UI and capture final frame before returning on game over
+            self._update_ui()
+            img = pygame.surfarray.array3d(self.display)
+            img = np.transpose(img, (1, 0, 2))
+            return reward, game_over, self.score, img
             
         # 4. place new food or just move
         if self.head == self.food:
@@ -88,8 +92,13 @@ class SnakeGameAI:
         # 5. update ui and clock
         self._update_ui()
         self.clock.tick(SPEED)
-        # 6. return game over and score
-        return reward, game_over, self.score
+        
+        # Capture frame for Streamlit
+        img = pygame.surfarray.array3d(self.display)
+        img = np.transpose(img, (1, 0, 2))
+        
+        # 6. return game over, score, and image
+        return reward, game_over, self.score, img
     
     def is_collision(self, pt=None):
         if pt is None:
