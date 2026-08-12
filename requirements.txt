@@ -1,6 +1,5 @@
---extra-index-url https://download.pytorch.org/whl/cpu
+streamlit
+pygame
+numpy
+matplotlib
 torch
-streamlit==1.31.0
-pygame==2.5.2
-numpy==1.26.4
-matplotlib==3.8.2git add requirements.txt
