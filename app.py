@@ -1,3 +1,4 @@
+import time
 import streamlit as st
 from agent import Agent
 from game import SnakeGameAI
@@ -28,6 +29,9 @@ if start:
             # Stream the image and score to the website
             frame_window.image(img, channels="RGB", use_container_width=True)
             score_text.subheader(f"Current Score: {score}")
+            
+            # Allow the browser time to render the frame
+            time.sleep(0.03)
             
             if done:
                 game.reset()
